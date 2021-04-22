@@ -38,11 +38,6 @@ variable "ssh_key" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
-variable "ssh_key_values" {
-  description = "List of Public SSH Keys values to be used for ssh access to the VMs."
-  type        = list(string)
-  default     = []
-}
 variable "remote_port" {
   description = "Remote tcp port to be used for access to the vms created via the nsg applied to the nics."
   type        = string
@@ -226,17 +221,20 @@ variable "identity_ids" {
   default     = []
 }
 
-variable "extra_disks" {
-  description = "(Optional) List of extra data disks attached to each virtual machine."
-  type = list(object({
-    name = string
-    size = number
-  }))
-  default = []
-}
-
 variable "os_profile_secrets" {
   description = "Specifies a list of certificates to be installed on the VM, each list item is a map with the keys source_vault_id, certificate_url and certificate_store."
   type        = list(map(string))
   default     = []
+}
+
+variable "as_fault_domain" {
+  description = "(Optional) Number of fault domain zones in availability set. Default 2"
+  type        = number
+  default     = 2
+}
+
+variable "as_update_domain" {
+  description = "(Optional) Number of update domain zones in availability set. Default 2"
+  type        = number
+  default     = 2
 }
